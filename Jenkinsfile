@@ -12,28 +12,22 @@ pipeline {
             }
         }
 
-        // stage('Install PNPM Dependencies') {
-        //     steps {
-        //         sh 'npm install -g pnpm'
-        //     }
-        // }
-
 
         stage('Install Dependencies') {
             steps {
-                sh 'pnpm install'
+                sh 'npm install'
             }
         }
 
         stage('Build') {
             steps {
-                sh 'pnpm run build'
+                sh 'npm run build'
             }
         }
 
         stage('Test') {
             steps {
-                sh 'pnpm run test'
+                sh 'npm run test'
             }
         }
 
