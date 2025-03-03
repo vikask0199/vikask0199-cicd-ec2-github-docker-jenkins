@@ -12,28 +12,34 @@ pipeline {
             }
         }
 
+        stage('Install PNPM Dependencies') {
+            steps {
+                sh 'npm install -g pnpm'
+            }
+        }
+
 
         stage('Install Dependencies') {
             steps {
-                sh 'npm install'
+                sh 'pnpm install'
             }
         }
 
         stage('Build') {
             steps {
-                sh 'npm run build'
+                sh 'pnpm run build'
             }
         }
 
         stage('Test') {
             steps {
-                sh 'npm run test'
+                sh 'pnpm run test'
             }
         }
 
         stage('Docker Build') {
             steps {
-                sh 'docker build -t cicd-pipeline:latest .'
+                sh 'docker build -t vikask0199-cicd-ec2-github-docker-jenkins:latest .'
             }
         }
 
@@ -41,9 +47,9 @@ pipeline {
             steps {
                 sshagent(['ec2-ssh-key']) {
                     sh '''
-                    scp -o StrictHostKeyChecking=no docker-compose.yml ubuntu@54.224.163.249:/home/ubuntu/cicd-pipeline/
+                    scp -o StrictHostKeyChecking=no docker-compose.yml ubuntu@54.224.163.249:/home/ubuntu/vikask0199-cicd-ec2-github-docker-jenkins/
                     ssh -o StrictHostKeyChecking=no ubuntu@54.224.163.249 '
-                        cd /home/ubuntu/cicd-pipeline &&
+                        cd /home/ubuntu/vikask0199-cicd-ec2-github-docker-jenkins &&
                         docker compose down &&
                         docker compose up -d --build
                     '
