@@ -13,7 +13,7 @@ const PORT = process.env.PORT || 3000;
 
 app.get('/', (req: Request, res: Response) => {
   res.json({
-    message: `Hello from CI/CD Pipeline in ${process.env.NODE_ENV} modebb!`
+    message: `Hello from CI/CD Pipeline in ${process.env.NODE_ENV} mode!`
   });
 });
 
