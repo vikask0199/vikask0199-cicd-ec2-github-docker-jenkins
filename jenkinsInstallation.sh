@@ -17,6 +17,26 @@ export PATH=$PATH:$JAVA_HOME/bin
 sudo apt-get update
 sudo apt-get upgrade -y
 
+
+# install node npm nvm from documentation
+# Download and install nvm:
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash
+
+# in lieu of restarting the shell
+\. "$HOME/.nvm/nvm.sh"
+
+# Download and install Node.js:
+nvm install 22
+
+# Verify the Node.js version:
+node -v # Should print "v22.14.0".
+nvm current # Should print "v22.14.0".
+
+# Verify npm version:
+npm -v # Should print "10.9.2".
+
+
+
 # Install jenkins from official documentation
 echo "Installing Jenkins"
 sudo wget -O /usr/share/keyrings/jenkins-keyring.asc \
@@ -60,6 +80,13 @@ sudo fc-cache -f -v
 
 # Re-run Jenkins
 sudo systemctl restart jenkins
+
+# Run this commnd to your where jebkins server is running
+sudo -u jenkins which npm
+# If no path avalable then run the command
+sudo apt install npm
+# Now restart Jenkins
+
 
 # To access the jenkins outside ec2
 +----------------------------+
@@ -159,3 +186,22 @@ echo "GitHub -> Webhooks"
 echo "Payload URL: http://your-ec2-public-ip:8080/github-webhook/"
 echo "Content Type: application/json"
 echo "Events: push, pull_request"
+
+
+# Create Job and Enable GitHub Webhook in Jenkins
+Jenkins dashboard -> New Item -> Enter your job name -> Select "Pipeline" -> OK
+New Item Configure -> Trigger -> select "GitHub hook trigger for GITScm polling" -> Ok
+New Item Configure -> Pipeline -> Select "Pipeline from SCM"  -> Ok
+# Aftre selecting Add repository url in below field
+Branches to build -> insert whatever branch to push on production
+
+
+# To build and test on ubuntu server
+Dashboard -> Manage Jenkins -> Credentials -> global
+Add credentials -> Kind: SSH Username with private key ->
+Username -> Kind: SSH Username
+Private Key -> Kind: Secret text -> paste your private key
+Description -> Kind: Message -> any description
+# To get the .pem file secret key is
+cat file_name.pem
+
