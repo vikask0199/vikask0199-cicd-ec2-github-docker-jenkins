@@ -3,10 +3,7 @@ pipeline {
 
     environment {
         NODE_ENV = 'production'
-        NVM_DIR = '/home/ubuntu/.nvm'  // Add this line to specify the NVM directory
-        NODE_VERSION = 'v22.14.0'      // Specify the installed Node.js version here
     }
-
 
     stages {
         stage('Checkout') {
@@ -18,16 +15,7 @@ pipeline {
 
         stage('Install Dependencies') {
             steps {
-                script {
-                    // Load NVM and Node version using bash explicitly
-                    sh '''
-                    #!/bin/bash
-                    source ~/.nvm/nvm.sh
-                    nvm install $NODE_VERSION
-                    nvm use $NODE_VERSION
-                    npm install
-                    '''
-                }
+                sh 'npm install'
             }
         }
 
