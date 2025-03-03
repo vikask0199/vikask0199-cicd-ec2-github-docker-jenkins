@@ -154,6 +154,10 @@ NodeJS Plugin
 # If docker and Docker pipeline not avalable then 
 Jenkins dashboard -> manage jenkins -> plugins -> avalable plugins -> (Search Docker, Docker Pipeline)
 
+The Jenkins URL is used to provide the root URL for absolute links to various Jenkins resources. That means this value is required for proper operation of many Jenkins features including email notifications, PR status updates, and the BUILD_URL environment variable provided to build steps.
+The proposed default value shown is not saved yet and is generated from the current request, if possible. The best practice is to set this value to the URL that users are expected to use. This will avoid confusion when sharing or viewing links.
+http://54.224.163.249:8080/
+
 
 
 # Install docker 
